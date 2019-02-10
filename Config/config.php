@@ -2,7 +2,7 @@
 
 return [
     'name'        => 'Barcode Generator',
-    'description' => 'Barcode generator for Mautic',
+    'description' => 'Barcode Generator for Mautic',
     'author'      => 'mtcextendee.com',
     'version'     => '1.0.0',
     'services' => [
