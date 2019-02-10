@@ -67,13 +67,13 @@ Use  `{barcode=custom_field_alias}` token in page or email builder.
 -   TYPE_PHARMA_CODE
 -   TYPE_PHARMA_CODE_TWO_TRACKS
 
-### Input in email/page builder
+#### Input in email/page builder
 
-![image](https://user-images.githubusercontent.com/462477/52535015-47aea080-2d49-11e9-983f-e9e6827204ac.png)
+<img src="https://user-images.githubusercontent.com/462477/52535015-47aea080-2d49-11e9-983f-e9e6827204ac.png" alt="" width="250px">
 
-### Output
+#### Output
 
-![image](https://user-images.githubusercontent.com/462477/52535023-63b24200-2d49-11e9-8244-a6078bf2fcc6.png)
+<img src="https://user-images.githubusercontent.com/462477/52535023-63b24200-2d49-11e9-8244-a6078bf2fcc6.png" alt="" width="250px">
 
 ### Unit tests
 
