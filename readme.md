@@ -75,6 +75,10 @@ Use  `{barcode=custom_field_alias}` token in page or email builder.
 
 ![image](https://user-images.githubusercontent.com/462477/52535023-63b24200-2d49-11e9-8244-a6078bf2fcc6.png)
 
+### Unit tests
+
+`phpunit --bootstrap ../vendor/autoload.php --configuration ../app/phpunit.xml.dist -d memory_limit=2048M --filter BarcodeTokenReplacerTest`
+
 ### Cudos:
 
 - https://github.com/picqer/php-barcode-generator
