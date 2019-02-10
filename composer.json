@@ -1,5 +1,5 @@
 {
-  "name": "kuzmany/mautic-barcode-generator-bundle",
+  "name": "mtcextendee/mautic-barcode-generator-bundle",
   "type": "mautic-plugin",
   "require": {
     "mautic/composer-plugin": "^1.0",
