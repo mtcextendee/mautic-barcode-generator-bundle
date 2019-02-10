@@ -63,8 +63,7 @@ class PageSubscriber extends CommonSubscriber
     {
 
         $content = $event->getContent();
-        //$lead    = ($this->security->isAnonymous()) ? $this->leadModel->getCurrentLead() : null;
-        $lead = $this->leadModel->getEntity(56);
+        $lead    = ($this->security->isAnonymous()) ? $this->leadModel->getCurrentLead() : null;
         if($lead && $lead->getId()){
             $content = $this->barcodeTokenReplacer->replaceTokens($content, $lead->getProfileFields());
         }
