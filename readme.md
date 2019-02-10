@@ -77,7 +77,9 @@ Use  `{barcode=custom_field_alias}` token in page or email builder.
 
 ### Unit tests
 
-`phpunit --bootstrap ../vendor/autoload.php --configuration ../app/phpunit.xml.dist -d memory_limit=2048M --filter BarcodeTokenReplacerTest`
+```
+phpunit --bootstrap ../vendor/autoload.php --configuration ../app/phpunit.xml.dist -d memory_limit=2048M --filter BarcodeTokenReplacerTest
+```
 
 ### Cudos:
 
