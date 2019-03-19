@@ -24,7 +24,18 @@ return [
         'other' => [
             'mautic.plugin.barcode_generator.token.replacer' => [
                 'class'     => \MauticPlugin\MauticBarcodeGeneratorBundle\Token\BarcodeTokenReplacer::class,
+                'arguments' => [
+                    'router'
+                ],
             ],
         ],
+    ],
+    'routes'=>[
+        'public' => [
+            'mautic_barcode_generator' => [
+                'path'       => '/barcode/{token}/{value}/{type}',
+                'controller' => 'MauticBarcodeGeneratorBundle:Public:get',
+            ],
+        ]
     ],
 ];
