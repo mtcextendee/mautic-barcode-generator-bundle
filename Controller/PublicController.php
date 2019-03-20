@@ -27,7 +27,7 @@ class PublicController extends CommonController
     public function getAction($token, $value, $type)
     {
         $barcodeGenerator = (new Generator($token))->get();
-        $barcode = $barcodeGenerator->getBarcode($value, $type);
+        $barcode = $barcodeGenerator->getBarcode($value, $type, 2, $this->request->get('height', 30));
         $img = $token.'.png';
 
         $response = new Response();
