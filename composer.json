@@ -3,6 +3,7 @@
   "type": "mautic-plugin",
   "require": {
     "mautic/composer-plugin": "^1.0",
-    "picqer/php-barcode-generator": "^0.3.0"
+    "picqer/php-barcode-generator": "^0.3.0",
+    "endroid/qr-code": "^3.5"
   }
 }

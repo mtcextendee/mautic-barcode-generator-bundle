@@ -1,7 +1,7 @@
 <?php
 
 /*
- * @copyright   2018 Mautic Contributors. All rights reserved
+ * @copyright   2019 Mautic Contributors. All rights reserved
  * @author      Mautic
  *
  * @link        http://mautic.org
@@ -12,20 +12,15 @@
 namespace MauticPlugin\MauticBarcodeGeneratorBundle\Token;
 
 use Mautic\LeadBundle\Entity\Lead;
-use Picqer\Barcode\BarcodeGenerator;
-use Picqer\Barcode\BarcodeGeneratorHTML;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
-class BarcodeTokenReplacer extends TokenReplacer
+class QrcodeTokenReplacer extends TokenReplacer
 {
     private $tokenList = [];
 
     /** @var array */
-    private $regex = ['{barcode=(.*?)}', '{barcodePNG=(.*?)}', '{barcodeJPG=(.*?)}', '{barcodeSVG=(.*?)}', '{barcodeHTML=(.*?)}'];
-
-    /** @var  object */
-    private $generator;
+    private $regex = ['{qrcode=(.*?)}'];
 
     /**
      * @var RouterInterface
@@ -52,16 +47,12 @@ class BarcodeTokenReplacer extends TokenReplacer
     public function getTokens($content, $options = null)
     {
         foreach ($this->searchTokens($content, $this->regex) as $token => $tokenAttribute) {
-
-            $this->generator  = (new Generator($token))->get();
-
-            $this->tokenList[$token] = $this->getBarcodeTokenValue(
+            $this->tokenList[$token] = $this->getQrTokenValue(
                 $options,
                 $tokenAttribute->getAlias(),
                 $tokenAttribute->getModifier()
             );
         }
-
         return $this->tokenList;
     }
 
@@ -72,44 +63,27 @@ class BarcodeTokenReplacer extends TokenReplacer
      *
      * @return mixed|string
      */
-    private function getBarcodeTokenValue(array $fields, $alias, $modifier)
+    private function getQrTokenValue(array $fields, $alias, $modifier)
     {
         $value = '';
+
         if (isset($fields[$alias])) {
             $value = $fields[$alias];
         } elseif (isset($fields['companies'][0][$alias])) {
             $value = $fields['companies'][0][$alias];
         }
-
-        if ($value !== '' && is_object($this->generator)) {
-            if ($this->generator instanceof BarcodeGeneratorHTML) {
-                $value = $this->generator->getBarcode($value, $this->getBarcodeType($modifier));
-            } else {
+        if ($value !== '') {
                 $value = '<img src="'.$this->router->generate(
-                        'mautic_barcode_generator',
+                        'mautic_qrcode_generator',
                         [
                             'value' => $value,
-                            'token' => substr(strrchr(get_class($this->generator), "\\"), 1),
-                            'type' => $this->getBarcodeType($modifier)
+                            'options' => $modifier,
                         ],
                         UrlGeneratorInterface::ABSOLUTE_URL
                     ).'" alt="">';
             }
-        }
 
        return $value;
-    }
-
-    /**     *
-     * Return type of barcode, default TYPE_CODE_128
-     *
-     * @param $type
-     *
-     * @return string
-     */
-    private function getBarcodeType($type = null){
-        $class = BarcodeGenerator::class;
-        return $type && defined($class.'::'.$type) ?  constant($class.'::'.$type) : BarcodeGenerator::TYPE_CODE_128;
     }
 
     /**

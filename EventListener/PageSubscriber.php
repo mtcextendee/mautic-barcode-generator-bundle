@@ -16,6 +16,7 @@ use Mautic\LeadBundle\Model\LeadModel;
 use Mautic\PageBundle\Event\PageDisplayEvent;
 use Mautic\PageBundle\PageEvents;
 use MauticPlugin\MauticBarcodeGeneratorBundle\Token\BarcodeTokenReplacer;
+use MauticPlugin\MauticBarcodeGeneratorBundle\Token\QrcodeTokenReplacer;
 
 /**
  * Class PageSubscriber.
@@ -33,17 +34,24 @@ class PageSubscriber extends CommonSubscriber
      */
     private $barcodeTokenReplacer;
 
+    /**
+     * @var QrcodeTokenReplacer
+     */
+    private $qrcodeTokenReplacer;
+
 
     /**
      * EmailSubscriber constructor.
      *
      * @param BarcodeTokenReplacer $barcodeTokenReplacer
      * @param LeadModel            $leadModel
+     * @param QrcodeTokenReplacer  $qrcodeTokenReplacer
      */
-    public function __construct(BarcodeTokenReplacer $barcodeTokenReplacer, LeadModel $leadModel)
+    public function __construct(BarcodeTokenReplacer $barcodeTokenReplacer, LeadModel $leadModel, QrcodeTokenReplacer $qrcodeTokenReplacer)
     {
         $this->leadModel = $leadModel;
         $this->barcodeTokenReplacer = $barcodeTokenReplacer;
+        $this->qrcodeTokenReplacer = $qrcodeTokenReplacer;
     }
 
     /**
@@ -66,6 +74,7 @@ class PageSubscriber extends CommonSubscriber
         $lead    = ($this->security->isAnonymous()) ? $this->leadModel->getCurrentLead() : null;
         if($lead && $lead->getId()){
             $content = $this->barcodeTokenReplacer->replaceTokens($content, $lead->getProfileFields());
+            $content = $this->qrcodeTokenReplacer->replaceTokens($content, $lead->getProfileFields());
         }
         $event->setContent($content);
     }

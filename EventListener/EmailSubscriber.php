@@ -15,8 +15,8 @@ namespace MauticPlugin\MauticBarcodeGeneratorBundle\EventListener;
 use Mautic\CoreBundle\EventListener\CommonSubscriber;
 use Mautic\EmailBundle\EmailEvents;
 use Mautic\EmailBundle\Event as Events;
-use Mautic\CoreBundle\Exception as MauticException;
 use MauticPlugin\MauticBarcodeGeneratorBundle\Token\BarcodeTokenReplacer;
+use MauticPlugin\MauticBarcodeGeneratorBundle\Token\QrcodeTokenReplacer;
 
 /**
  * Class EmailSubscriber.
@@ -29,10 +29,21 @@ class EmailSubscriber extends CommonSubscriber
      */
     private $barcodeTokenReplacer;
 
-    public function __construct(BarcodeTokenReplacer $barcodeTokenReplacer)
-    {
+    /**
+     * @var QrcodeTokenReplacer
+     */
+    private $qrcodeTokenReplacer;
 
+    /**
+     * EmailSubscriber constructor.
+     *
+     * @param BarcodeTokenReplacer $barcodeTokenReplacer
+     * @param QrcodeTokenReplacer  $qrcodeTokenReplacer
+     */
+    public function __construct(BarcodeTokenReplacer $barcodeTokenReplacer, QrcodeTokenReplacer $qrcodeTokenReplacer)
+    {
         $this->barcodeTokenReplacer = $barcodeTokenReplacer;
+        $this->qrcodeTokenReplacer = $qrcodeTokenReplacer;
     }
 
     /**
@@ -55,6 +66,7 @@ class EmailSubscriber extends CommonSubscriber
     {
         $content = $event->getContent();
         $content = $this->barcodeTokenReplacer->replaceTokens($content, $event->getLead());
+        $content = $this->qrcodeTokenReplacer->replaceTokens($content, $event->getLead());
         $event->setContent($content);
     }
 }

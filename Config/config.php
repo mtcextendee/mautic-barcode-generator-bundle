@@ -11,6 +11,7 @@ return [
                 'class'     => \MauticPlugin\MauticBarcodeGeneratorBundle\EventListener\EmailSubscriber::class,
                 'arguments' => [
                     'mautic.plugin.barcode_generator.token.replacer',
+                    'mautic.plugin.qr_generator.token.replacer'
                 ],
             ],
             'mautic.plugin.page.barcode_generator.subscriber' => [
@@ -18,6 +19,7 @@ return [
                 'arguments' => [
                     'mautic.plugin.barcode_generator.token.replacer',
                     'mautic.lead.model.lead',
+                    'mautic.plugin.qr_generator.token.replacer'
                 ],
             ],
         ],
@@ -28,13 +30,29 @@ return [
                     'router'
                 ],
             ],
+            'mautic.plugin.qr_generator.token.replacer' => [
+                'class'     => \MauticPlugin\MauticBarcodeGeneratorBundle\Token\QrcodeTokenReplacer::class,
+                'arguments' => [
+                    'router'
+                ],
+            ],
         ],
     ],
     'routes'=>[
         'public' => [
             'mautic_barcode_generator' => [
-                'path'       => '/barcode/{token}/{value}/{type}',
-                'controller' => 'MauticBarcodeGeneratorBundle:Public:get',
+                'path'       => '/barcode/{token}/{value}/{type}/{options}',
+                'controller' => 'MauticBarcodeGeneratorBundle:Public:getBarcode',
+                'defaults'   => [
+                    'options' => '',
+                ],
+            ],
+            'mautic_qrcode_generator' => [
+                'path'       => '/qrcode/{value}/{options}',
+                'controller' => 'MauticBarcodeGeneratorBundle:Public:getQrcode',
+                'defaults'   => [
+                    'options' => '',
+                ],
             ],
         ]
     ],

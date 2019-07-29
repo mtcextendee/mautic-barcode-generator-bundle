@@ -22,7 +22,6 @@ abstract class TokenReplacer
     public function replaceTokens($content, $options)
     {
         $tokenList = $this->getTokens($content, $options);
-
         return str_replace(array_keys($tokenList), $tokenList, $content);
     }
 
@@ -52,7 +51,6 @@ abstract class TokenReplacer
                 }
             }
         }
-
         return $tokens;
     }
 }
