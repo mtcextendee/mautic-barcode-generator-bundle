@@ -14,6 +14,7 @@ namespace MauticPlugin\MauticBarcodeGeneratorBundle\Controller;
 use Endroid\QrCode\QrCode;
 use Mautic\CoreBundle\Controller\CommonController;
 use MauticPlugin\MauticBarcodeGeneratorBundle\Token\Generator;
+use MauticPlugin\MauticBarcodeGeneratorBundle\Token\QrcodeAttribute;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
@@ -53,6 +54,9 @@ class PublicController extends CommonController
     public function getQrcodeAction($value, $options ='')
     {
         $qrCode = new QrCode($value);
+        /** @var QrcodeAttribute $qrcodeAttribute */
+        $qrcodeAttribute = $this->get('mautic.plugin.qr_generator.token.attributes');
+        $qrcodeAttribute->setAttributesFromModifier($qrCode, $options);
         header('Content-Type: '.$qrCode->getContentType());
         echo $qrCode->writeString();
     }

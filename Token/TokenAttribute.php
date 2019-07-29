@@ -40,7 +40,22 @@ class TokenAttribute
         if (!isset($fallbackCheck[1])) {
             return '';
         }
-
         return $fallbackCheck[1];
+    }
+
+    public function getParameters()
+    {
+
+    }
+
+    /**
+     * @param $string
+     * @param $prefix
+     *
+     * @return bool
+     */
+    private function startWith($string, $prefix)
+    {
+        return substr($string, 0, strlen($prefix)) == $prefix;
     }
 }

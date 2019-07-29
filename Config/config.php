@@ -36,6 +36,12 @@ return [
                     'router'
                 ],
             ],
+            'mautic.plugin.qr_generator.token.attributes' => [
+                'class'     => \MauticPlugin\MauticBarcodeGeneratorBundle\Token\QrcodeAttribute::class,
+                'arguments' => [
+                    'mautic.helper.integration'
+                ],
+            ],
         ],
     ],
     'routes'=>[

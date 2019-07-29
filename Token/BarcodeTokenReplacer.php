@@ -90,7 +90,8 @@ class BarcodeTokenReplacer extends TokenReplacer
                         [
                             'value' => $value,
                             'token' => substr(strrchr(get_class($this->generator), "\\"), 1),
-                            'type' => $this->getBarcodeType($modifier)
+                            'type' => $this->getBarcodeType($modifier),
+                            'options' => $modifier
                         ],
                         UrlGeneratorInterface::ABSOLUTE_URL
                     ).'" alt="">';
@@ -103,11 +104,21 @@ class BarcodeTokenReplacer extends TokenReplacer
     /**     *
      * Return type of barcode, default TYPE_CODE_128
      *
-     * @param $type
+     * @param $modifier
      *
      * @return string
      */
-    private function getBarcodeType($type = null){
+    private function getBarcodeType($modifier = null){
+
+        $options = explode(',', $modifier);
+        $type = '';
+        foreach ($options as $option) {
+            if ($this->startWith($option, 'TYPE_')) {
+                $type = $option;
+                break;
+            }
+        }
+
         $class = BarcodeGenerator::class;
         return $type && defined($class.'::'.$type) ?  constant($class.'::'.$type) : BarcodeGenerator::TYPE_CODE_128;
     }
@@ -118,5 +129,16 @@ class BarcodeTokenReplacer extends TokenReplacer
     public function getRegex()
     {
         return $this->regex;
+    }
+
+    /**
+     * @param $string
+     * @param $prefix
+     *
+     * @return bool
+     */
+    private function startWith($string, $prefix)
+    {
+        return substr($string, 0, strlen($prefix)) == $prefix;
     }
 }
