@@ -97,4 +97,5 @@ phpunit --bootstrap ../vendor/autoload.php --configuration ../app/phpunit.xml.di
 ### Cudos:
 
 - https://github.com/picqer/php-barcode-generator
+- https://github.com/endroid/qr-code
 - https://github.com/mautic/mautic
