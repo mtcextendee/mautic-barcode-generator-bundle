@@ -80,7 +80,7 @@ class QrcodeTokenReplacer extends TokenReplacer
                             'options' => $modifier,
                         ],
                         UrlGeneratorInterface::ABSOLUTE_URL
-                    ).'" alt="">';
+                    ).'" alt="" />';
             }
 
        return $value;

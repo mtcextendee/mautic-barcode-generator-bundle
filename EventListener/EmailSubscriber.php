@@ -65,8 +65,17 @@ class EmailSubscriber extends CommonSubscriber
     public function onEmailGenerate(Events\EmailSendEvent $event)
     {
         $content = $event->getContent();
-        $content = $this->barcodeTokenReplacer->replaceTokens($content, $event->getLead());
-        $content = $this->qrcodeTokenReplacer->replaceTokens($content, $event->getLead());
-        $event->setContent($content);
+        $lead = $event->getLead();
+        $tokenList = $this->barcodeTokenReplacer->getTokens($content, $lead);
+        if (count($tokenList)) {
+            $event->addTokens($tokenList);
+            unset($tokenList);
+        }
+
+        $tokenList = $this->qrcodeTokenReplacer->getTokens($content, $lead);
+        if (count($tokenList)) {
+            $event->addTokens($tokenList);
+            unset($tokenList);
+        }
     }
 }

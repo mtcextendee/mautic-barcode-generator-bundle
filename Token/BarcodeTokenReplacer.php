@@ -94,7 +94,7 @@ class BarcodeTokenReplacer extends TokenReplacer
                             'options' => $modifier
                         ],
                         UrlGeneratorInterface::ABSOLUTE_URL
-                    ).'" alt="">';
+                    ).'" alt="" />';
             }
         }
 
