@@ -1,6 +1,6 @@
-# Mautic Barcode Generator Bundle 
+# Mautic Barcode and QR code Generator Bundle 
 
-Barcode generator for Mautic.
+Barcode and QRcode generator for Mautic. Barcode and QR code can be used also in Badge Bundle for Mautic https://github.com/mtcextendee/mautic-badge-generator-bundle
 
 Mautic Extendee family  for Mautic ([https://mtcextendee.com](https://mtcextendee.com/))
 
@@ -10,7 +10,7 @@ Installation by command line:
 
 `composer require mtcextendee/mautic-barcode-generator-bundle`
 
-### Usage
+### Usage for barcode
 
 Use  `{barcode=custom_field_alias}` token in page or email builder. 
 
@@ -67,6 +67,7 @@ Use  `{barcode=custom_field_alias}` token in page or email builder.
 -   TYPE_PHARMA_CODE
 -   TYPE_PHARMA_CODE_TWO_TRACKS
 
+
 #### Input in email/page builder
 
 <img src="https://user-images.githubusercontent.com/462477/52535015-47aea080-2d49-11e9-983f-e9e6827204ac.png" alt="" width="250px">
@@ -74,6 +75,18 @@ Use  `{barcode=custom_field_alias}` token in page or email builder.
 #### Output
 
 <img src="https://user-images.githubusercontent.com/462477/52535023-63b24200-2d49-11e9-8244-a6078bf2fcc6.png" alt="" width="250px">
+
+### Usage for QR code
+
+You can setup basic settings in Plugins > Barcode Generator. 
+
+<img src="https://user-images.githubusercontent.com/462477/62292604-0f219100-b467-11e9-95ca-0869656e52b3.png" width="250px" >
+
+Then you can use `{qrcode=custom_field_alias}` token in page or email builder. 
+
+These settings can be overwrite also by tokens modifier::
+
+`{qrcode=custom_contact_field|size=30,margin=10,fgcolor=000000,bgcolor=#FFFFF,error_correction_level=low}`
 
 ### Unit tests
 
@@ -84,4 +97,5 @@ phpunit --bootstrap ../vendor/autoload.php --configuration ../app/phpunit.xml.di
 ### Cudos:
 
 - https://github.com/picqer/php-barcode-generator
+- https://github.com/endroid/qr-code
 - https://github.com/mautic/mautic
